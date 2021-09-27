@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Repositories\Category\CategoryInterface;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Language\LanguageInterface;
 use App\Repositories\Language\LanguageRepository;
 use App\Repositories\Setting\SettingInterface;
@@ -21,6 +24,7 @@ class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(CategoryInterface::class, CategoryRepository::class);
         $this->app->bind(SettingTranslatableInterface::class, SettingTranslatableRepository::class);
         $this->app->bind(SettingInterface::class, SettingRepository::class);
         $this->app->bind(LanguageInterface::class, LanguageRepository::class);
