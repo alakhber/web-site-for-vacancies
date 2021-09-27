@@ -1,0 +1,11 @@
+<?php
+
+namespace {{ namespace }};
+
+interface {{ class }}Interface {
+    public function index();
+    public function store($request);
+    public function edit($id);
+    public function update($request,$id);
+    public function delete($id);
+}

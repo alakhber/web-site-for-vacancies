@@ -1,0 +1,72 @@
+<?php
+namespace {{ namespace }};
+
+use Exception;
+use App\Models\{{ class }};
+
+class {{ class }}Repository implements {{ class }}Interface
+{
+
+    private $errorMessage = 'Xəta.Zəhmət Olmasa Texniki Dəstəyə Bildirin !';
+    private $notFoundMessage = 'Xəta.{{ class }} Mövcud Deyil !';
+    private $successCreateMessage = '{{ class }} Uğurla Əlavə Olundu ! ';
+    private $successUpdateMessage = '{{ class }} Uğurla Redaktə Olundu ! ';
+    private $successDeleteMessage = '{{ class }} Uğurla Silindi ! ';
+
+    public function index()
+    {
+        try {
+            return {{ class }}::all();
+        } catch (Exception $e) {
+            return response()->json(['operation' => false, 'data' => [], 'msg' => $this->errorMessage], 200);
+        }
+    }
+
+    public function store($request)
+    {
+        try {
+            {{ class }}::create($request);
+            return response()->json(['operation' => true, 'data' => [], 'msg' => $this->successCreateMessage], 200);
+        } catch (Exception $e) {
+            return response()->json(['operation' => false, 'data' => [], 'msg' => $this->errorMessage], 200);
+        }
+    }
+    public function edit($id)
+    {
+        try {
+            $data = {{ class }}::find($id);
+            if (is_null($data)) {
+                return response()->json(['operation' => false, 'data' => [], 'msg' => $this->notFoundMessage], 200);
+            }
+            return response()->json(['operation' => true, 'data' => $data, 'msg' => ''], 200);
+        } catch (Exception $e) {
+            return response()->json(['operation' => false, 'data' => [], 'msg' => $this->errorMessage], 200);
+        }
+    }
+    public function update($request, $id)
+    {
+        try {
+            $data = {{ class }}::find($id);
+            if(is_null($data)){
+                return response()->json(['operation' => false, 'data' => [], 'msg' => $this->notFoundMessage], 200);
+            }
+            $data->update($request->validated());
+            return response()->json(['operation' => true, 'data' => [], 'msg' => $this->successUpdateMessage], 200);
+        } catch (Exception $e) {
+            return response()->json(['operation' => false, 'data' => [], 'msg' => $this->errorMessage], 200);
+        }
+    }
+    public function delete($id)
+    {
+        try {
+            $data = {{ class }}::find($id);
+            if(is_null($data)){
+                return response()->json(['operation' => false, 'data' => [], 'msg' => $this->notFoundMessage], 200);
+            }
+            $data->delete();
+            return response()->json(['operation' => true, 'data' => [], 'msg' => $this->successDeleteMessage], 200);
+        } catch (Exception $e) {
+            return response()->json(['operation' => false, 'data' => [], 'msg' => $this->errorMessage], 200);
+        }
+    }
+}
