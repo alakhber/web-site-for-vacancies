@@ -106,6 +106,30 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{ _linkCheck('category/*','menu-open') }}">
+                    <a href="#" class="nav-link {{ _linkCheck('category/*') }}">
+                        <i class="fas fa-list nav-icon"></i>
+                        <p>
+                            Kateqorya
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('back.category.all') }}" class="nav-link {{ _linkCheck('category/all') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kateqoryalar</p>
+                            </a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a href="{{ route('back.category.create') }}" class="nav-link {{ _linkCheck('category/new') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Yeni Kateqorya</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
