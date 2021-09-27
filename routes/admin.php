@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SettingTranslatableController;
+use App\Http\Controllers\Admin\Translate\CategoryController as TranslateCategoryController;
 use App\Http\Controllers\Admin\UserController;
-use App\Models\Language;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,8 +34,8 @@ Route::prefix('user')->name('user.')->group(function () {
 });
 
 Route::prefix('setting')->name('setting.')->group(function () {
-    Route::get('contact',[SettingController::class,'contact'])->name('contact');
-    Route::patch('contact',[SettingController::class,'contactUpdate'])->name('contact.update');
+    Route::get('contact', [SettingController::class, 'contact'])->name('contact');
+    Route::patch('contact', [SettingController::class, 'contactUpdate'])->name('contact.update');
     Route::prefix('files')->group(function () {
         Route::get('/', [SettingController::class, 'files'])->name('files');
         Route::post('/logo', [SettingController::class, 'logo'])->name('logo');
@@ -50,10 +51,27 @@ Route::prefix('setting')->name('setting.')->group(function () {
         Route::delete('/delete/{id}', [SettingTranslatableController::class, 'destroy'])->name('delete');
     });
 
-    
+
 
 
     // Route::get('text',function(){
     //     dd(config('app.available_locale'));
     // });
+});
+
+Route::prefix('/category')->name('category.')->group(function () {
+    Route::get('/all', [CategoryController::class, 'index'])->name('all');
+    Route::get('/new', [CategoryController::class, 'create'])->name('create');
+    Route::post('/new', [CategoryController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+    Route::patch('/edit/{id}', [CategoryController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->name('delete');
+    Route::prefix('translate/{cid}')->name('translate.')->group(function () {
+        Route::get('/all', [TranslateCategoryController::class, 'index'])->name('all');
+        Route::get('/create', [TranslateCategoryController::class, 'create'])->name('create');
+        Route::post('/create', [TranslateCategoryController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [TranslateCategoryController::class, 'edit'])->name('edit');
+        Route::patch('/edit/{id}', [TranslateCategoryController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [TranslateCategoryController::class, 'destroy'])->name('delete');
+    });
 });
