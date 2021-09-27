@@ -1,8 +1,8 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Repositories\Category\Translate;
 
-interface {{ class }} {
+interface CategoryInterface {
     public function index();
     public function store($request);
     public function edit($id);

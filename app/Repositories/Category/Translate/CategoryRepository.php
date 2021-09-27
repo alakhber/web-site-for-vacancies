@@ -1,22 +1,20 @@
 <?php
-namespace {{ namespace }};
+namespace App\Repositories\Category\Translate;
 
 use Exception;
 
-
-class {{ class }}Repository implements {{ class }}Interface
+class CategoryRepository implements CategoryRepository
 {
 
     private $errorMessage = 'Xəta.Zəhmət Olmasa Texniki Dəstəyə Bildirin !';
-    private $notFoundMessage = 'Xəta.   Mövcud Deyil !';
-    private $successCreateMessage = '   Uğurla Əlavə Olundu ! ';
-    private $successUpdateMessage = '   Uğurla Redaktə Olundu ! ';
-    private $successDeleteMessage = '   Uğurla Silindi ! ';
+    private $notFoundMessage = 'Xəta.CategoryRepository Mövcud Deyil !';
+    private $successCreateMessage = 'CategoryRepository Uğurla Əlavə Olundu ! ';
+    private $successUpdateMessage = 'CategoryRepository Uğurla Redaktə Olundu ! ';
+    private $successDeleteMessage = 'CategoryRepository Uğurla Silindi ! ';
 
     public function index()
     {
         try {
-            
         } catch (Exception $e) {
             return response()->json(['operation' => false, 'data' => [], 'msg' => $this->errorMessage], 200);
         }
@@ -49,7 +47,7 @@ class {{ class }}Repository implements {{ class }}Interface
             if(is_null($data)){
                 return response()->json(['operation' => false, 'data' => [], 'msg' => $this->notFoundMessage], 200);
             }
-            $data->update($request);
+            $data->update($request->validated());
             return response()->json(['operation' => true, 'data' => [], 'msg' => $this->successUpdateMessage], 200);
         } catch (Exception $e) {
             return response()->json(['operation' => false, 'data' => [], 'msg' => $this->errorMessage], 200);
