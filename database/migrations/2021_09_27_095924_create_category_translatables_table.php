@@ -16,6 +16,7 @@ class CreateCategoryTranslatablesTable extends Migration
         Schema::create('category_translatables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('locale_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
         });
